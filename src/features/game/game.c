@@ -8,6 +8,11 @@
 
 void play_game(int size, int mode, int vs)
 {
+    vs == 1 ? pvc(size, mode) : pvp(size);
+}
+
+void pvp(int size)
+{
     char board[BOARD_SIZE][BOARD_SIZE] = {
         {' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' '},
@@ -23,7 +28,58 @@ void play_game(int size, int mode, int vs)
         if (turn % 2 == 0)
         {
             if (turn != 0)
-                vs == 2 ? printf("Player 2 Move") : printf("Computer Move");
+                printf("Player 2 Move");
+            display_board(board, size);
+            printf("Player 1 Move\n");
+            get_player_move(board, size, 'X');
+            if (check_win(board, size, 'X'))
+            {
+                display_board(board, size);
+                printf("Player 1 wins!\n");
+                break;
+            }
+        }
+        else
+        {
+            printf("Player 1 Move");
+            display_board(board, size);
+            printf("Player 2 Move\n");
+            get_player_move(board, size, 'O');
+            if (check_win(board, size, 'O'))
+            {
+                display_board(board, size);
+                printf("Player 2 wins!\n");
+                break;
+            }
+        }
+        if (check_tie(board, size))
+        {
+            display_board(board, size);
+            printf("Tie game!\n");
+            break;
+        }
+        turn++;
+    }
+}
+
+void pvc(int size, int mode)
+{
+    char board[BOARD_SIZE][BOARD_SIZE] = {
+        {' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' '}};
+
+    int turn = 0;
+    while (!is_game_over(board, size))
+    {
+        if (turn % 2 == 0)
+        {
+            if (turn != 0)
+                printf("Computer Move");
 
             display_board(board, size);
             get_player_move(board, size, 'X');
@@ -39,11 +95,11 @@ void play_game(int size, int mode, int vs)
         {
             printf("Your Move");
             display_board(board, size);
-            vs == 2 ? get_player_move(board, size, 'O') : get_computer_move(board, size, mode);
+            get_computer_move(board, size, mode);
             if (check_win(board, size, 'O'))
             {
                 display_board(board, size);
-                vs == 2 ? printf("Player 2 wins!\n") : printf("Computer wins!\n");
+                printf("Computer wins!\n");
                 computer_score++;
                 break;
             }
@@ -56,5 +112,5 @@ void play_game(int size, int mode, int vs)
         }
         turn++;
     }
-    vs == 2 ? printf("Final score: Player 1 %d - %d Player 2\n", user_score, computer_score) : printf("Final score: You %d - %d Computer\n", user_score, computer_score);
+    printf("Final score: You %d - %d Computer\n", user_score, computer_score);
 }
