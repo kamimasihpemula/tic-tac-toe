@@ -6,7 +6,7 @@
 #include "computer/computer.h"
 #include "../../global.h"
 
-void play_game(int size, int mode)
+void play_game(int size, int mode, int vs)
 {
     char board[BOARD_SIZE][BOARD_SIZE] = {
         {' ', ' ', ' ', ' ', ' ', ' ', ' '},
@@ -23,11 +23,10 @@ void play_game(int size, int mode)
         if (turn % 2 == 0)
         {
             if (turn != 0)
-            {
-                printf("Computer Move");
-            }
+                vs == 2 ? printf("Player 2 Move") : printf("Computer Move");
+
             display_board(board, size);
-            get_user_move(board, size);
+            get_player_move(board, size, 'X');
             if (check_win(board, size, 'X'))
             {
                 display_board(board, size);
@@ -40,11 +39,11 @@ void play_game(int size, int mode)
         {
             printf("Your Move");
             display_board(board, size);
-            get_computer_move(board, size, mode);
+            vs == 2 ? get_player_move(board, size, 'O') : get_computer_move(board, size, mode);
             if (check_win(board, size, 'O'))
             {
                 display_board(board, size);
-                printf("Computer wins!\n");
+                vs == 2 ? printf("Player 2 wins!\n") : printf("Computer wins!\n");
                 computer_score++;
                 break;
             }
@@ -57,5 +56,5 @@ void play_game(int size, int mode)
         }
         turn++;
     }
-    printf("Final score: You %d - %d Computer\n", user_score, computer_score);
+    vs == 2 ? printf("Final score: Player 1 %d - %d Player 2\n", user_score, computer_score) : printf("Final score: You %d - %d Computer\n", user_score, computer_score);
 }

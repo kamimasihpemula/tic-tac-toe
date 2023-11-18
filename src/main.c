@@ -1,9 +1,6 @@
 #include "main.h"
 #include "features/menu/menu.h"
 
-#include <time.h>
-#include <stdlib.h>
-
 int main()
 {
     srand(time(NULL));

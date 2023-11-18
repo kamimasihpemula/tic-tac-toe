@@ -2,8 +2,7 @@
 #define player_h
 
 #include "../../../main.h"
-#include <stdio.h>
 
-void get_user_move(char board[][BOARD_SIZE], int size);
+void get_player_move(char board[][BOARD_SIZE], int size, char player);
 
 #endif

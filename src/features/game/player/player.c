@@ -1,6 +1,6 @@
 #include "player.h"
 
-void get_user_move(char board[][BOARD_SIZE], int size)
+void get_player_move(char board[][BOARD_SIZE], int size, char player)
 {
     int row, col;
     printf("Enter row (1-%d): ", size);
@@ -12,11 +12,11 @@ void get_user_move(char board[][BOARD_SIZE], int size)
     if (row < 0 || row >= size || col < 0 || col >= size || board[row][col] != ' ')
     {
         printf("Invalid move. Try again.\n");
-        get_user_move(board, size);
+        get_player_move(board, size, player);
     }
     else
     {
-        board[row][col] = 'X';
-        Beep(700, 500); // Play sound for player 1
+        board[row][col] = player;
+        Beep(700, 500);
     }
 }

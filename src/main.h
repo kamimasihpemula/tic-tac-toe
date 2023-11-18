@@ -3,6 +3,10 @@
 
 #include <stdio.h>
 #include "global.h"
+#include <stdio.h>
+#include <windows.h>
+#include <time.h>
+#include <stdlib.h>
 
 #define BOARD_SIZE 7
 

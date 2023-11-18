@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void play_game(int size, int mode);
+void play_game(int size, int mode, int vs);
 
 #endif
