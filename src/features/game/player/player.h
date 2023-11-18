@@ -3,6 +3,6 @@
 
 #include "../../../main.h"
 
-void get_player_move(char board[][BOARD_SIZE], int size, char player);
+int get_player_move(char board[][BOARD_SIZE], int size, char player, int vs);
 
 #endif

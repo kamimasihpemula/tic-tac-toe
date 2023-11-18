@@ -23,15 +23,20 @@ void pvp(int size)
         {' ', ' ', ' ', ' ', ' ', ' ', ' '}};
 
     int turn = 0;
+    int isSkip = 0;
     while (!is_game_over(board, size))
     {
         if (turn % 2 == 0)
         {
-            if (turn != 0)
+            if (turn == 0)
+                display_board(board, size);
+            if (isSkip == 0 && turn != 0)
+            {
                 printf("Player 2 Move");
-            display_board(board, size);
-            printf("Player 1 Move\n");
-            get_player_move(board, size, 'X');
+                display_board(board, size);
+            }
+            printf("Player 1 Turn\n");
+            isSkip = get_player_move(board, size, 'X', 2);
             if (check_win(board, size, 'X'))
             {
                 display_board(board, size);
@@ -41,10 +46,13 @@ void pvp(int size)
         }
         else
         {
-            printf("Player 1 Move");
-            display_board(board, size);
-            printf("Player 2 Move\n");
-            get_player_move(board, size, 'O');
+            if (isSkip == 0)
+            {
+                printf("Player 1 Move");
+                display_board(board, size);
+            }
+            printf("Player 2 Turn\n");
+            isSkip = get_player_move(board, size, 'O', 2);
             if (check_win(board, size, 'O'))
             {
                 display_board(board, size);
@@ -74,6 +82,7 @@ void pvc(int size, int mode)
         {' ', ' ', ' ', ' ', ' ', ' ', ' '}};
 
     int turn = 0;
+    int isSkip = 0;
     while (!is_game_over(board, size))
     {
         if (turn % 2 == 0)
@@ -82,7 +91,7 @@ void pvc(int size, int mode)
                 printf("Computer Move");
 
             display_board(board, size);
-            get_player_move(board, size, 'X');
+            isSkip = get_player_move(board, size, 'X', 1);
             if (check_win(board, size, 'X'))
             {
                 display_board(board, size);
@@ -93,8 +102,11 @@ void pvc(int size, int mode)
         }
         else
         {
-            printf("Your Move");
-            display_board(board, size);
+            if (isSkip == 0)
+            {
+                printf("Your Move");
+                display_board(board, size);
+            }
             get_computer_move(board, size, mode);
             if (check_win(board, size, 'O'))
             {
