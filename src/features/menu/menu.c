@@ -44,6 +44,11 @@ void start_game()
         int vs;
         printf("Choose the game mode (1 - Singleplayer, 2 - Multiplayer): ");
         scanf("%d", &vs);
+        if (vs != 1 && vs != 2)
+        {
+            printf("Invalid game mode. Please choose 1 or 2.\n");
+            continue;
+        }
         int size, mode;
 
         if (vs == 1)
