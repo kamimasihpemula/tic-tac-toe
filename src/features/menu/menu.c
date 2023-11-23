@@ -10,6 +10,11 @@ void display_menu()
         int vs;
         printf("Choose game mode (1 for vs bot, 2 for vs player)");
         scanf("%d", &vs);
+        if (vs != 1 && vs != 2)
+        {
+            printf("Invalid game mode. Please choose 1 or 2.\n");
+            continue;
+        }
         int size, mode;
         printf("Choose the board size (3, 5, or 7): ");
         scanf("%d", &size);
