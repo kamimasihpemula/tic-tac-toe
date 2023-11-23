@@ -4,31 +4,65 @@
 #include "../../global.h"
 #include "../game/states/save_game.h"
 #include "../game/states/load_game.h"
+#include "guide/TTC_HowToPlay.h"
+#include "../shop/shop.h"
 
 void display_menu()
 {
     while (1)
     {
-        printf("1. Play Game\n");
-        printf("2. Load Game\n");
-        printf("3. History Game\n");
-        printf("4. Exit\n");
-        printf("Enter your choice: ");
+        printf("\n");
+        // Menampilkan Tulisa TIC TAC TOE untuk cover
+        printf("   .========================================================.\n");
+        printf("   ||  _______ _        _______           _______          ||\n");
+        printf("   || |__   __(_)      |__   __|         |__   __|         ||\n");
+        printf("   ||    | |   _  ___     | | __ _  ___     | | ___   ___  ||\n");
+        printf("   ||    | |  | |/ __|    | |/ _` |/ __|    | |/ _ \\ / _ \\ ||\n");
+        printf("   ||    | |  | | (__     | | (_| | (__     | | (_) |  __/ ||\n");
+        printf("   ||    |_|  |_|\\___|    |_|\\__,_|\\___|    |_|\\___/ \\___| ||\n");
+        printf("   '========================================================'\n");
+        printf("\n");
+
+        // Menampilkan Menu
+        printf("                             .------.\n");
+        printf("                             | MENU |\n");
+        printf("                             '------'\n");
+        printf("\n");
+        printf("                       .----------------------.\n");
+        printf("                       | 1. Play The Game     |\n");
+        printf("                       | 2. History Game      |\n");
+        printf("                       | 3. Load Game         |\n");
+        printf("                       | 4. Shop              |\n");
+        printf("                       | 5. Setting           |\n");
+        printf("                       | 6. How To Play?      |\n");
+        printf("                       | 7. Exit The Game     |\n");
+        printf("                       '----------------------'\n");
+        printf("\n");
+        printf("   Pilih Menu : ");
         int choice;
         scanf("%d", &choice);
-
+        printf("\n\n");
         switch (choice)
         {
         case 1:
             start_game();
             break;
         case 2:
-            load_game();
-            break;
-        case 3:
             display_history();
             break;
+        case 3:
+            load_game();
+            break;
         case 4:
+            shop();
+            break;
+        case 5:
+            printf("Fitur sedang dalam pengembangan");
+            break;
+        case 6:
+            guide();
+            break;
+        case 7:
             exit(0);
         default:
             printf("Invalid choice. Please try again.\n");

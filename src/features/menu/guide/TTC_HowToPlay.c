@@ -1,11 +1,12 @@
 #include "TTC_HowToPlay.h"
 #include "../../../main.h"
-#include "../Fitur_Menu.h"
+#include "../menu.h"
 #include "../../../global.h"
 
-void guide(){
+void guide()
+{
     while (1)
-    {   
+    {
         int menu;
         printf("\n");
         printf("   .========================================================.\n");
@@ -17,7 +18,7 @@ void guide(){
         printf("   ||    |_|  |_|\\___|    |_|\\__,_|\\___|    |_|\\___/ \\___| ||\n");
         printf("   '========================================================'\n\n");
 
-        //Menampilkan Fitur How To Play?
+        // Menampilkan Fitur How To Play?
         printf("                           .--------------. \n");
         printf("                           | HOW TO PLAY? | \n");
         printf("                           '--------------'\n");
@@ -38,12 +39,12 @@ void guide(){
         scanf("%d", &menu);
         if (menu == 0)
         {
-             display_mainmenu();
-        }   else
+            display_menu();
+        }
+        else
         {
             printf("Invalid input.\n");
             continue;
         }
     }
 }
-
