@@ -16,18 +16,55 @@ void play_game(int size, int mode, int vs)
     int statusGame = 0;
     vs == 1 ? pvc(size, mode, &statusGame) : pvp(size);
     // Inside the play_game function after the game loop
+    History data;
     if (statusGame == 1)
     {
-        add_to_leaderboard("You", "Win", 10);
+        int point = 0;
+        if (mode == 2)
+        {
+            if (size == 3)
+                point = 10;
+            else if (size == 5)
+                point = 15;
+            else
+                point = 25;
+        }
+        else
+        {
+            if (size == 3)
+                point = 5;
+            else if (size == 5)
+                point = 10;
+            else
+                point = 20;
+        }
+        data = (History){
+            .username = "You",
+            .game = (vs == 1) ? "Singleplayer" : "Multiplayer",
+            .level = (mode == 1) ? "Easy" : "Hard",
+            .result = "Win",
+            .coins = point};
+        add_to_leaderboard(data);
     }
     else if (statusGame == 0)
     {
-
-        add_to_leaderboard("You", "Lose", 0);
+        data = (History){
+            .username = "You",
+            .game = (vs == 1) ? "Singleplayer" : "Multiplayer",
+            .level = mode == 1 ? "Easy" : "Hard",
+            .result = "Lose",
+            .coins = 0};
+        add_to_leaderboard(data);
     }
     else
     {
-        add_to_leaderboard("You", "Tie", 0);
+        data = (History){
+            .username = "You",
+            .game = (vs == 1) ? "Singleplayer" : "Multiplayer",
+            .level = (mode == 1) ? "Easy" : "Hard",
+            .result = "Tie",
+            .coins = 0};
+        add_to_leaderboard(data);
     }
     save_game();
 }
@@ -149,30 +186,47 @@ void pvc(int size, int mode, int *statusGame)
     }
 }
 
-void add_to_leaderboard(char username[], char result[], int coins)
+void add_to_leaderboard(History data)
 {
+
+    char *time = get_current_time();
+    char *date = get_current_date();
     history_count = histories.count;
     if (history_count < MAX_HISTORY_SIZE)
     {
-        // Get current time
-        time_t t = time(NULL);
-        struct tm tm = *localtime(&t);
-
-        // Save to leaderboard
-        sprintf(leaderboard[history_count].username, "%s", username);
-        sprintf(leaderboard[history_count].result, "%s", result);
-        sprintf(leaderboard[history_count].datetime, "%d-%02d-%02d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
-        sprintf(leaderboard[history_count].time, "%02d:%02d", tm.tm_hour, tm.tm_min);
-        leaderboard[history_count].coins = coins;
-        histories.count = history_count + 1;
-
+        strcpy(leaderboard[history_count].time, time);
+        strcpy(leaderboard[history_count].date, date);
+        leaderboard[history_count].username = data.username;
+        leaderboard[history_count].result = data.result;
+        leaderboard[history_count].game = data.game;
+        leaderboard[history_count].level = data.level;
+        leaderboard[history_count].coins = data.coins;
         histories.history[history_count] = leaderboard[history_count];
-
-        // Update history count
         history_count++;
+        histories.count = history_count;
+        free(time);
+        free(date);
     }
     else
     {
         printf("Leaderboard is full. Unable to add more entries.\n");
     }
+}
+
+char *get_current_time()
+{
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    char *time = malloc(20 * sizeof(char));
+    sprintf(time, "%02d:%02d:%02d", tm.tm_hour, tm.tm_min, tm.tm_sec);
+    return time;
+}
+
+char *get_current_date()
+{
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    char *date = malloc(20 * sizeof(char));
+    sprintf(date, "%02d-%02d-%04d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+    return date;
 }

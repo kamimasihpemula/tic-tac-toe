@@ -123,22 +123,15 @@ void display_score(int game_mode)
 
 void display_history()
 {
-    printf("*************************************************************\n");
-    printf("*                    Tic Tac Toe History                    *\n");
-    printf("*************************************************************\n");
-    printf("|    Date    |   Time   |  Player  | Level | Result | Coins |\n");
-    printf("|------------|----------|----------|-------|--------|-------|\n");
-
+    printf("**************************************************************************\n");
+    printf("*                             Tic Tac Toe History                        *\n");
+    printf("**************************************************************************\n");
+    printf("| Date       | Time     | Player | Game         | Level | Result | Coins |\n");
+    printf("|------------|----------|--------|--------------|-------|--------|-------|\n");
     for (int i = 0; i < histories.count; i++)
     {
-        printf("| %-11s| %-8s | %-8s | %-5s | %-6s | %-5d |\n",
-               histories.history[i].datetime,
-               histories.history[i].time,
-               histories.history[i].username,
-               histories.history[i].result,
-               "Easy",
-               histories.history[i].coins);
+        printf("| %-11s| %-9s| %-7s| %-13s| %-6s| %-7s| %-5d |\n", histories.history[i].date, histories.history[i].time, histories.history[i].username, histories.history[i].game, histories.history[i].level, histories.history[i].result, histories.history[i].coins);
     }
 
-    printf("*************************************************************\n");
+    printf("**************************************************************************\n");
 }
