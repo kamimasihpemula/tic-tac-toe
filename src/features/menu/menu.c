@@ -1,14 +1,32 @@
 #include "../../main.h"
 #include "menu.h"
-#include "../game/game.h"
-#include "../../global.h"
 #include "../game/states/save_game.h"
 #include "../game/states/load_game.h"
-#include "guide/TTC_HowToPlay.h"
+#include "../guide/guide.h"
 #include "../shop/shop.h"
+#include "../setting/setting.h"
 
 void display_menu()
 {
+    Histories histories;
+    User user;
+    Sound sound[6];
+
+    if (load_game(&histories, &user, sound) == 0)
+    {
+        histories.size = 0;
+        histories.user_score = 0;
+        histories.computer_score = 0;
+        sound[0] = (Sound){.name = "Default", .price = 0, .purchased = "Yes"};
+        sound[1] = (Sound){.name = "Acumalaka", .price = 32, .purchased = "No"};
+        sound[2] = (Sound){.name = "Doeem", .price = 10, .purchased = "No"};
+        sound[3] = (Sound){.name = "Roz", .price = 30, .purchased = "No"};
+        sound[4] = (Sound){.name = "Whoossh", .price = 10, .purchased = "No"};
+        sound[5] = (Sound){.name = "Wind", .price = 52, .purchased = "No"};
+        user.sound.name = sound[0].name;
+        user.coins = 100;
+    }
+
     while (1)
     {
         printf("\n");
@@ -45,19 +63,18 @@ void display_menu()
         switch (choice)
         {
         case 1:
-            start_game();
+            start_game(&histories, &user, sound);
             break;
         case 2:
-            display_history();
+            display_history(histories, user);
             break;
         case 3:
-            load_game();
             break;
         case 4:
-            shop();
+            shop(&user, sound, &histories);
             break;
         case 5:
-            printf("Fitur sedang dalam pengembangan");
+            setting(&user, sound, &histories);
             break;
         case 6:
             guide();
@@ -70,7 +87,7 @@ void display_menu()
     }
 }
 
-void start_game()
+void start_game(Histories *data, User *user, Sound sound[6])
 {
 
     while (1)
@@ -103,34 +120,36 @@ void start_game()
             continue;
         }
 
-        play_game(size, mode, vs);
+        play_game(size, mode, vs, data, user, sound);
+        display_score(vs, data);
 
         printf("Play again? (y/n): ");
         char choice;
         scanf(" %c", &choice);
         if (choice != 'y' && choice != 'Y')
-        {
-            display_score(vs);
             break;
-        }
     }
 }
 
-void display_score(int game_mode)
+void display_score(int game_mode, Histories *data)
 {
-    game_mode == 1 ? printf("You: %d - Computer: %d\n", user_score, computer_score) : printf("Player 1: %d - Player 2: %d\n", user_score, computer_score);
+    game_mode == 1 ? printf("You: %d - Computer: %d\n", data->user_score, data->computer_score) : printf("Player 1: %d - Player 2: %d\n", data->user_score, data->computer_score);
 }
 
-void display_history()
+void display_history(Histories data, User user)
 {
+    printf("Your coins: %d\n", user.coins);
+    printf("**************************************************************************\n");
+    printf("*                             Tic Tac Toe Score                         *\n");
+    printf("\t\tYou: %d - Computer: %d\n", data.user_score, data.computer_score);
     printf("**************************************************************************\n");
     printf("*                             Tic Tac Toe History                        *\n");
     printf("**************************************************************************\n");
     printf("| Date       | Time     | Player | Game         | Level | Result | Coins |\n");
     printf("|------------|----------|--------|--------------|-------|--------|-------|\n");
-    for (int i = 0; i < histories.count; i++)
+    for (int i = 0; i < data.size; i++)
     {
-        printf("| %-11s| %-9s| %-7s| %-13s| %-6s| %-7s| %-5d |\n", histories.history[i].date, histories.history[i].time, histories.history[i].username, histories.history[i].game, histories.history[i].level, histories.history[i].result, histories.history[i].coins);
+        printf("| %-10s | %-8s | %-6s | %-12s | %-5s | %-6s | %-5d |\n", data.history[i].date, data.history[i].time, data.history[i].username, data.history[i].game, data.history[i].level, data.history[i].result, data.history[i].coins);
     }
 
     printf("**************************************************************************\n");

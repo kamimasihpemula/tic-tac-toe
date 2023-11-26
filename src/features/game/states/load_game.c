@@ -1,17 +1,19 @@
 #include "load_game.h"
-#include "../game.h"
 
-void load_game()
+int load_game(Histories *histories, User *user, Sound sound[6])
 {
     FILE *file = fopen(FILENAME, "rb");
 
     if (file != NULL)
     {
-        fread(&histories, sizeof(Histories), 1, file);
+        fread(histories, sizeof(Histories), 1, file);
+        fread(user, sizeof(User), 1, file);
+        fread(sound, sizeof(Sound), 6, file);
         fclose(file);
+        return 1;
     }
     else
     {
-        printf("Unable to open file for reading.\n");
+        return 0;
     }
 }

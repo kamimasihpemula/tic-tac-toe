@@ -2,7 +2,8 @@
 #define load_game_h
 
 #include <stdio.h>
+#include "../game.h"
 
-void load_game();
+int load_game(Histories *histories, User *user, Sound sound[6]);
 
 #endif

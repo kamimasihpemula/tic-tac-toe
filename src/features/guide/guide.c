@@ -1,7 +1,5 @@
-#include "TTC_HowToPlay.h"
-#include "../../../main.h"
-#include "../menu.h"
-#include "../../../global.h"
+#include "guide.h"
+#include "../menu/menu.h"
 
 void guide()
 {
