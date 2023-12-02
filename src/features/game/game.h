@@ -24,7 +24,6 @@ typedef struct
 {
     char date[20];
     char time[6];
-    char *username;
     char *game;
     char *level;
     char *result;
@@ -35,6 +34,9 @@ typedef struct
 {
     History history[MAX_HISTORY_SIZE];
     int size;
+    // TODO
+    // add single player score of user and computer
+    // add multi player score of player 1 and player 2
     int user_score;
     int computer_score;
 } Histories;
