@@ -49,11 +49,10 @@ void display_menu()
         printf("                       .----------------------.\n");
         printf("                       | 1. Play The Game     |\n");
         printf("                       | 2. History Game      |\n");
-        printf("                       | 3. Load Game         |\n");
-        printf("                       | 4. Shop              |\n");
-        printf("                       | 5. Setting           |\n");
-        printf("                       | 6. How To Play?      |\n");
-        printf("                       | 7. Exit The Game     |\n");
+        printf("                       | 3. Shop              |\n");
+        printf("                       | 4. Setting           |\n");
+        printf("                       | 5. How To Play?      |\n");
+        printf("                       | 6. Exit The Game     |\n");
         printf("                       '----------------------'\n");
         printf("\n");
         printf("   Pilih Menu : ");
@@ -69,17 +68,15 @@ void display_menu()
             display_history(histories, user);
             break;
         case 3:
-            break;
-        case 4:
             shop(&user, sound, &histories);
             break;
-        case 5:
+        case 4:
             setting(&user, sound, &histories);
             break;
-        case 6:
+        case 5:
             guide();
             break;
-        case 7:
+        case 6:
             exit(0);
         default:
             printf("Invalid choice. Please try again.\n");
@@ -139,18 +136,18 @@ void display_score(int game_mode, Histories *data)
 void display_history(Histories data, User user)
 {
     printf("Your coins: %d\n", user.coins);
-    printf("**************************************************************************\n");
-    printf("*                             Tic Tac Toe Score                         *\n");
+    printf("*****************************************************************\n");
+    printf("*                         Tic Tac Toe Score                     *\n");
     printf("\t\tYou: %d - Computer: %d\n", data.user_score, data.computer_score);
-    printf("**************************************************************************\n");
-    printf("*                             Tic Tac Toe History                        *\n");
-    printf("**************************************************************************\n");
-    printf("| Date       | Time     | Player | Game         | Level | Result | Coins |\n");
-    printf("|------------|----------|--------|--------------|-------|--------|-------|\n");
+    printf("*****************************************************************\n");
+    printf("*                         Tic Tac Toe History                   *\n");
+    printf("*****************************************************************\n");
+    printf("| Date       | Time     | Game         | Level | Result | Coins |\n");
+    printf("|------------|----------|--------------|-------|--------|-------|\n");
     for (int i = 0; i < data.size; i++)
     {
-        printf("| %-10s | %-8s | %-6s | %-12s | %-5s | %-6s | %-5d |\n", data.history[i].date, data.history[i].time, data.history[i].username, data.history[i].game, data.history[i].level, data.history[i].result, data.history[i].coins);
+        printf("| %-10s | %-8s | %-12s | %-5s | %-6s | %-5d |\n", data.history[i].date, data.history[i].time, data.history[i].game, data.history[i].level, data.history[i].result, data.history[i].coins);
     }
 
-    printf("**************************************************************************\n");
+    printf("*****************************************************************\n");
 }

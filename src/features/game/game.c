@@ -9,63 +9,78 @@
 void play_game(int size, int mode, int vs, Histories *histories, User *user, Sound sound[6])
 {
     int statusGame = 0;
-    vs == 1 ? pvc(size, mode, &statusGame, histories, user) : pvp(size, user);
+    vs == 1 ? pvc(size, mode, &statusGame, histories, user) : pvp(size, user, &statusGame);
     // Inside the play_game function after the game loop
     History data;
-    if (statusGame == 1)
+    if (vs == 1)
     {
-        int point = 0;
-        if (mode == 2)
+        if (statusGame == 1)
         {
-            if (size == 3)
-                point = 10;
-            else if (size == 5)
-                point = 15;
+            int point = 0;
+            if (mode == 2)
+            {
+                if (size == 3)
+                    point = 10;
+                else if (size == 5)
+                    point = 15;
+                else
+                    point = 25;
+            }
             else
-                point = 25;
+            {
+                if (size == 3)
+                    point = 5;
+                else if (size == 5)
+                    point = 10;
+                else
+                    point = 20;
+            }
+            data = (History){
+                .username = "You",
+                .game = "Singleplayer",
+                .level = (mode == 1) ? "Easy" : "Hard",
+                .result = "Win",
+                .coins = point};
+            add_user_point(user, point);
+            add_to_leaderboard(data, histories);
+        }
+        else if (statusGame == 0)
+        {
+            data = (History){
+                .username = "You",
+                .game = "Singleplayer",
+                .level = mode == 1 ? "Easy" : "Hard",
+                .result = "Lose",
+                .coins = 0};
+            add_to_leaderboard(data, histories);
         }
         else
         {
-            if (size == 3)
-                point = 5;
-            else if (size == 5)
-                point = 10;
-            else
-                point = 20;
+            data = (History){
+                .username = "You",
+                .game = "Singleplayer",
+                .level = (mode == 1) ? "Easy" : "Hard",
+                .result = "Tie",
+                .coins = 0};
+            add_to_leaderboard(data, histories);
         }
-        data = (History){
-            .username = "You",
-            .game = (vs == 1) ? "Singleplayer" : "Multiplayer",
-            .level = (mode == 1) ? "Easy" : "Hard",
-            .result = "Win",
-            .coins = point};
-        add_user_point(user, point);
-        add_to_leaderboard(data, histories);
-    }
-    else if (statusGame == 0)
-    {
-        data = (History){
-            .username = "You",
-            .game = (vs == 1) ? "Singleplayer" : "Multiplayer",
-            .level = mode == 1 ? "Easy" : "Hard",
-            .result = "Lose",
-            .coins = 0};
-        add_to_leaderboard(data, histories);
     }
     else
     {
         data = (History){
             .username = "You",
-            .game = (vs == 1) ? "Singleplayer" : "Multiplayer",
-            .level = (mode == 1) ? "Easy" : "Hard",
-            .result = "Tie",
+            .game = "Multiplayer",
+            .level = "",
+            .result = (statusGame == 1) ? "Win" : (statusGame == 0) ? "Lose"
+                                                                    : "Tie",
             .coins = 0};
         add_to_leaderboard(data, histories);
     }
+
     save_game(histories, user, sound);
 }
 
-void pvp(int size, User *user)
+void pvp(int size, User *user, int *statusGame)
 {
     char board[BOARD_SIZE][BOARD_SIZE] = {
         {' ', ' ', ' ', ' ', ' ', ' ', ' '},
@@ -95,6 +110,7 @@ void pvp(int size, User *user)
             {
                 display_board(board, size);
                 printf("Player 1 wins!\n");
+                *statusGame = 1;
                 break;
             }
         }
@@ -118,6 +134,7 @@ void pvp(int size, User *user)
         {
             display_board(board, size);
             printf("Tie game!\n");
+            *statusGame = 2;
             break;
         }
         turn++;
