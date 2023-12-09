@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "../game/game.h"
 
+void clear_stream(void);
 void display_menu();
 void start_game(Histories *data, User *user, Sound sound[6]);
 void display_score(int game_mode, Histories *data);
