@@ -3,20 +3,16 @@
 
 void guide()
 {
-    while (1)
-    {
-        int menu;
-        printf("\n");
-        printf("   .========================================================.\n");
-        printf("   ||  _______ _        _______           _______          ||\n");
-        printf("   || |__   __(_)      |__   __|         |__   __|         ||\n");
-        printf("   ||    | |   _  ___     | | __ _  ___     | | ___   ___  ||\n");
-        printf("   ||    | |  | |/ __|    | |/ _` |/ __|    | |/ _ \\ / _ \\ ||\n");
-        printf("   ||    | |  | | (__     | | (_| | (__     | | (_) |  __/ ||\n");
-        printf("   ||    |_|  |_|\\___|    |_|\\__,_|\\___|    |_|\\___/ \\___| ||\n");
-        printf("   '========================================================'\n\n");
-
-        //Menampilkan Fitur How To Play?
+    printf("\n");
+    printf("   .========================================================.\n");
+    printf("   ||  _______ _        _______           _______          ||\n");
+    printf("   || |__   __(_)      |__   __|         |__   __|         ||\n");
+    printf("   ||    | |   _  ___     | | __ _  ___     | | ___   ___  ||\n");
+    printf("   ||    | |  | |/ __|    | |/ _` |/ __|    | |/ _ \\ / _ \\ ||\n");
+    printf("   ||    | |  | | (__     | | (_| | (__     | | (_) |  __/ ||\n");
+    printf("   ||    |_|  |_|\\___|    |_|\\__,_|\\___|    |_|\\___/ \\___| ||\n");
+    printf("   '========================================================'\n\n");
+    //Menampilkan Fitur How To Play?
     printf("                          .--------------. \n");
     printf("                          | HOW TO PLAY? | \n");
     printf("                          '--------------' \n");
@@ -79,17 +75,7 @@ void guide()
     printf("   | 5. Ulangi langkah 2-4 , hingga salah satu dari kedua      |\n");
     printf("   |    pemain menang.                                         |\n");
     printf("   '-----------------------------------------------------------'\n\n");
-
-        printf("Enter 0 to go back\n\n");
-        scanf("%d", &menu);
-        if (menu == 0)
-        {
-            display_menu();
-        }
-        else
-        {
-            printf("Invalid input.\n");
-            continue;
-        }
-    }
-}
+    printf("\n Tekan Enter untuk kembali");
+    clear_stream();
+    getchar();
+}  

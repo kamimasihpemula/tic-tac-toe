@@ -7,7 +7,7 @@
 #include "../setting/setting.h"
 
 // Clear getchar, scanf, etc
-void clear_stream(void)
+void clear_stream()
 {
     int c;
     while ((c = getchar()) != '\n' && c != EOF) {
