@@ -150,4 +150,10 @@ void display_history(Histories data, User user)
     }
 
     printf("*****************************************************************\n");
+    printf("\n Tekan Enter untuk kembali");
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) {
+        continue;
+    }
+    getchar();
 }
