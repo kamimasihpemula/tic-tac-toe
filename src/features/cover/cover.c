@@ -27,6 +27,7 @@ void display_cover(){
 
     //Klik enter untuk lanjut 
     printf("   Klik Enter Untuk Lanjut\n\n");
-    scanf("%c");
+    char c;
+    scanf("%c",&c);
     display_menu();
 }
