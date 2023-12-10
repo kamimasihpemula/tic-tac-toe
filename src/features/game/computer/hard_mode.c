@@ -25,7 +25,7 @@ void hard_mode(char board[][BOARD_SIZE], int size)
             }
         }
     }
-    Sleep(2000);
+    //Sleep(2000);
     board[bestMoveRow][bestMoveCol] = 'O';
-    Beep(900, 300); // Play sound for player 2
+    //Beep(900, 300); // Play sound for player 2
 }

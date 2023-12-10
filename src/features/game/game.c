@@ -108,6 +108,7 @@ void pvp(int size, User *user, int *statusGame, Histories *data)
             {
                 printf("%s Move", player2);
                 display_board(board, size);
+                play_sfx("cm");
             }
             printf("%s Turn\n", player1);
             isSkip = get_player_move(board, size, 'X', 2, user, 0);
@@ -115,6 +116,7 @@ void pvp(int size, User *user, int *statusGame, Histories *data)
             {
                 display_board(board, size);
                 printf("%s wins!\n", player1);
+                play_sfx("win");
                 *statusGame = 1;
                 data->pvp_score.player1++;
                 break;
@@ -126,6 +128,7 @@ void pvp(int size, User *user, int *statusGame, Histories *data)
             {
                 printf("%s Move", player1);
                 display_board(board, size);
+                play_sound(user);
             }
             printf("%s Turn\n", player2);
             isSkip = get_player_move(board, size, 'O', 2, user, 0);
@@ -133,6 +136,7 @@ void pvp(int size, User *user, int *statusGame, Histories *data)
             {
                 display_board(board, size);
                 printf("%s wins!\n", player2);
+                play_sfx("win");
                 data->pvp_score.player2++;
                 break;
             }
@@ -141,6 +145,7 @@ void pvp(int size, User *user, int *statusGame, Histories *data)
         {
             display_board(board, size);
             printf("Tie game!\n");
+            play_sfx("lose");
             *statusGame = 2;
             break;
         }
@@ -174,11 +179,15 @@ void pvc(int size, int mode, int *statusGame, Histories *data, User *user)
                 printf("Computer Move");
 
             display_board(board, size);
+            if (turn != 0)
+                play_sfx("cm");
+
             isSkip = get_player_move(board, size, 'X', 1, user, 0);
             if (check_win(board, size, 'X'))
             {
                 display_board(board, size);
                 printf("%s wins!\n", username);
+                play_sfx("win");
                 *statusGame = 1;
                 data->pvc_score.user++;
                 break;
@@ -190,12 +199,14 @@ void pvc(int size, int mode, int *statusGame, Histories *data, User *user)
             {
                 printf("%s Move", username);
                 display_board(board, size);
+                play_sfx("pm");
             }
             get_computer_move(board, size, mode);
             if (check_win(board, size, 'O'))
             {
                 display_board(board, size);
                 printf("Computer wins!\n");
+                play_sfx("lose");
                 data->pvc_score.computer++;
                 break;
             }
@@ -204,6 +215,7 @@ void pvc(int size, int mode, int *statusGame, Histories *data, User *user)
         {
             display_board(board, size);
             printf("Tie game!\n");
+            play_sfx("lose");
             *statusGame = 2;
             break;
         }
@@ -289,13 +301,44 @@ void play_sound(User *user)
         mciSendString("play mp3", NULL, 0, NULL);
 
         // Wait for the playback to finish (you can adjust this time)
-        Sleep(5000);
+        Sleep(3000);
 
         // Close the MP3 file
         mciSendString("close mp3", NULL, 0, NULL);
     }
     else
     {
-        Beep(1000, 700);
+        play_sfx("pm");
     }
+}
+void play_sfx(char *sfx)
+{
+    char *soundFile;
+    int length = strlen(sfx);
+
+    soundFile = malloc(strlen(sfx) + 5);
+    strcpy(soundFile, sfx);
+    strcat(soundFile, ".mp3");
+    // add assets/sounds/ to the path
+    char *path = "assets/sounds/";
+    char *soundPath = malloc(strlen(path) + strlen(soundFile) + 1);
+    strcpy(soundPath, path);
+    strcat(soundPath, soundFile);
+    // Construct the MCI command to play the MP3 file
+    char command[256];
+    snprintf(command, sizeof(command), "open \"%s\" type mpegvideo alias mp3", soundPath);
+    // Open the MP3 file
+    mciSendString(command, NULL, 0, NULL);
+    // Play the MP3 file
+    mciSendString("play mp3", NULL, 0, NULL);
+    // Wait for the playback to finish (you can adjust this time)
+    if (length>2){
+        Sleep(3000);
+    }
+    else {
+    Sleep(1000);
+    }
+    // Close the MP3 file
+    mciSendString("close mp3", NULL, 0, NULL);
+    //}
 }
