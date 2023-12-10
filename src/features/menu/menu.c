@@ -10,8 +10,9 @@
 void clear_stream()
 {
     int c;
-    while ((c = getchar()) != '\n' && c != EOF) {
-        continue;                   // discard extra characters
+    while ((c = getchar()) != '\n' && c != EOF)
+    {
+        continue; // discard extra characters
     }
 }
 
@@ -24,8 +25,8 @@ void display_menu()
     if (load_game(&histories, &user, sound) == 0)
     {
         histories.size = 0;
-        histories.user_score = 0;
-        histories.computer_score = 0;
+        histories.pvc_score = (PvcScore){.user = 0, .computer = 0};
+        histories.pvp_score = (PvpScore){.player1 = 0, .player2 = 0};
         sound[0] = (Sound){.name = "Default", .price = 0, .purchased = "Yes"};
         sound[1] = (Sound){.name = "Acumalaka", .price = 32, .purchased = "No"};
         sound[2] = (Sound){.name = "Doeem", .price = 10, .purchased = "No"};
@@ -139,7 +140,7 @@ void start_game(Histories *data, User *user, Sound sound[6])
 
 void display_score(int game_mode, Histories *data)
 {
-    game_mode == 1 ? printf("You: %d - Computer: %d\n", data->user_score, data->computer_score) : printf("Player 1: %d - Player 2: %d\n", data->user_score, data->computer_score);
+    game_mode == 1 ? printf("You: %d - Computer: %d\n", data->pvc_score.user, data->pvc_score.computer) : printf("Player 1: %d - Player 2: %d\n", data->pvp_score.player1, data->pvp_score.player2);
 }
 
 void display_history(Histories data, User user)
@@ -147,7 +148,7 @@ void display_history(Histories data, User user)
     printf("Your coins: %d\n", user.coins);
     printf("*****************************************************************\n");
     printf("*                         Tic Tac Toe Score                     *\n");
-    printf("\t\tYou: %d - Computer: %d\n", data.user_score, data.computer_score);
+    printf("\t\tYou: %d - Computer: %d\n", data.pvc_score.user, data.pvp_score.player2);
     printf("*****************************************************************\n");
     printf("*                         Tic Tac Toe History                   *\n");
     printf("*****************************************************************\n");

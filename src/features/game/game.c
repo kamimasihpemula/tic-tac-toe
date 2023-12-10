@@ -9,7 +9,7 @@
 void play_game(int size, int mode, int vs, Histories *histories, User *user, Sound sound[6])
 {
     int statusGame = 0;
-    vs == 1 ? pvc(size, mode, &statusGame, histories, user) : pvp(size, user, &statusGame);
+    vs == 1 ? pvc(size, mode, &statusGame, histories, user) : pvp(size, user, &statusGame, histories);
     // Inside the play_game function after the game loop
     History data;
     if (vs == 1)
@@ -76,16 +76,16 @@ void play_game(int size, int mode, int vs, Histories *histories, User *user, Sou
     save_game(histories, user, sound);
 }
 
-void pvp(int size, User *user, int *statusGame)
+void pvp(int size, User *user, int *statusGame, Histories *data)
 {
     char *player1 = malloc(100 * sizeof(char));
     char *player2 = malloc(100 * sizeof(char));
 
     printf("Enter player 1 username: ");
-    scanf("%s", player1);
+    scanf(" %[^\n]", player1);
 
     printf("\nEnter player 2 username: ");
-    scanf("%s", player2);
+    scanf(" %[^\n]", player2);
 
     char board[BOARD_SIZE][BOARD_SIZE] = {
         {' ', ' ', ' ', ' ', ' ', ' ', ' '},
@@ -110,12 +110,13 @@ void pvp(int size, User *user, int *statusGame)
                 display_board(board, size);
             }
             printf("%s Turn\n", player1);
-            isSkip = get_player_move(board, size, 'X', 2, user);
+            isSkip = get_player_move(board, size, 'X', 2, user, 0);
             if (check_win(board, size, 'X'))
             {
                 display_board(board, size);
                 printf("%s wins!\n", player1);
                 *statusGame = 1;
+                data->pvp_score.player1++;
                 break;
             }
         }
@@ -127,11 +128,12 @@ void pvp(int size, User *user, int *statusGame)
                 display_board(board, size);
             }
             printf("%s Turn\n", player2);
-            isSkip = get_player_move(board, size, 'O', 2, user);
+            isSkip = get_player_move(board, size, 'O', 2, user, 0);
             if (check_win(board, size, 'O'))
             {
                 display_board(board, size);
                 printf("%s wins!\n", player2);
+                data->pvp_score.player2++;
                 break;
             }
         }
@@ -172,13 +174,13 @@ void pvc(int size, int mode, int *statusGame, Histories *data, User *user)
                 printf("Computer Move");
 
             display_board(board, size);
-            isSkip = get_player_move(board, size, 'X', 1, user);
+            isSkip = get_player_move(board, size, 'X', 1, user, 0);
             if (check_win(board, size, 'X'))
             {
                 display_board(board, size);
                 printf("%s wins!\n", username);
                 *statusGame = 1;
-                data->user_score++;
+                data->pvc_score.user++;
                 break;
             }
         }
@@ -194,7 +196,7 @@ void pvc(int size, int mode, int *statusGame, Histories *data, User *user)
             {
                 display_board(board, size);
                 printf("Computer wins!\n");
-                data->computer_score++;
+                data->pvc_score.computer++;
                 break;
             }
         }

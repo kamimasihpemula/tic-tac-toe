@@ -4,6 +4,6 @@
 #include "../../../main.h"
 #include "../game.h"
 
-int get_player_move(char board[][BOARD_SIZE], int size, char player, int vs, User *user);
+int get_player_move(char board[][BOARD_SIZE], int size, char player, int vs, User *user, double elapsed_time);
 
 #endif
