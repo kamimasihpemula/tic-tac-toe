@@ -199,7 +199,7 @@ void pvc(int size, int mode, int *statusGame, Histories *data, User *user)
             {
                 printf("%s Move", username);
                 display_board(board, size);
-                play_sfx("pm");
+                play_sound(user);
             }
             get_computer_move(board, size, mode);
             if (check_win(board, size, 'O'))
