@@ -162,7 +162,7 @@ void pvc(int size, int mode, int *statusGame, Histories *data, User *user)
     int isSkip = 0;
 
     printf("Enter your username: ");
-    scanf("%s", username);
+    scanf(" %[^\n]", username);
 
     while (!is_game_over(board, size))
     {
