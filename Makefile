@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -std=c11
 LDFLAGS = -lwinmm
 SRCDIR = src
 OBJDIR = build
-BINDIR = build
+BINDIR = bin
 EXECUTABLE = $(BINDIR)/tictactoe.exe
 
 # Define the source files

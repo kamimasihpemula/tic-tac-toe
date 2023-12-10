@@ -332,11 +332,13 @@ void play_sfx(char *sfx)
     // Play the MP3 file
     mciSendString("play mp3", NULL, 0, NULL);
     // Wait for the playback to finish (you can adjust this time)
-    if (length>2){
+    if (length > 2)
+    {
         Sleep(3000);
     }
-    else {
-    Sleep(1000);
+    else
+    {
+        Sleep(1000);
     }
     // Close the MP3 file
     mciSendString("close mp3", NULL, 0, NULL);
