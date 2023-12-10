@@ -8,7 +8,7 @@ void easy_mode(char board[][BOARD_SIZE], int size)
         row = rand() % size;
         col = rand() % size;
     } while (board[row][col] != ' ');
-    Sleep(2000);
+    //Sleep(2000);
     board[row][col] = 'O';
-    Beep(900, 300); // Play sound for player 2
+    //Beep(900, 300); // Play sound for player 2
 }

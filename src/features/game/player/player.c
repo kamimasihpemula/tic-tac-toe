@@ -51,7 +51,7 @@ int get_player_move(char board[][BOARD_SIZE], int size, char player, int vs, Use
         {
             board[row][col] = player;
             // player == 'X' ? Beep(700, 500) : Beep(900, 500);
-            player == 'X' ? play_sound(user) : Beep(900, 500);
+            //player == 'X' ? play_sound(user) : Beep(900, 500);
             isSkip = 0;
         }
     }
