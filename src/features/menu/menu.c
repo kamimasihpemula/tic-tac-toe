@@ -105,6 +105,7 @@ void start_game(Histories *data, User *user, Sound sound[6])
         if (vs != 1 && vs != 2)
         {
             printf("Invalid game mode. Please choose 1 or 2.\n");
+            clear_stream();
             continue;
         }
         int size, mode;
@@ -116,6 +117,7 @@ void start_game(Histories *data, User *user, Sound sound[6])
             if (mode != 1 && mode != 2)
             {
                 printf("Invalid mode. Please choose 1 (Easy) or 2 (Hard).\n");
+                clear_stream();
                 continue;
             }
         }
@@ -124,6 +126,7 @@ void start_game(Histories *data, User *user, Sound sound[6])
         if (size != 3 && size != 5 && size != 7)
         {
             printf("Invalid board size. Please choose 3, 5, or 7.\n");
+            clear_stream();
             continue;
         }
 
