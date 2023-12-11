@@ -29,10 +29,10 @@ void display_menu()
         histories.pvp_score = (PvpScore){.player1 = 0, .player2 = 0};
         sound[0] = (Sound){.name = "Default", .price = 0, .purchased = "Yes"};
         sound[1] = (Sound){.name = "Acumalaka", .price = 32, .purchased = "No"};
-        sound[2] = (Sound){.name = "Doeem", .price = 10, .purchased = "No"};
-        sound[3] = (Sound){.name = "Roz", .price = 30, .purchased = "No"};
-        sound[4] = (Sound){.name = "Whoossh", .price = 10, .purchased = "No"};
-        sound[5] = (Sound){.name = "Wind", .price = 52, .purchased = "No"};
+        sound[2] = (Sound){.name = "Discord Notification", .price = 10, .purchased = "No"};
+        sound[3] = (Sound){.name = "Aku punya ini", .price = 30, .purchased = "No"};
+        sound[4] = (Sound){.name = "Vine Boom", .price = 10, .purchased = "No"};
+        sound[5] = (Sound){.name = "Samsung Notification", .price = 52, .purchased = "No"};
         user.sound.name = sound[0].name;
         user.coins = 100;
     }

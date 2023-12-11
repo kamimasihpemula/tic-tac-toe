@@ -145,7 +145,7 @@ void pvp(int size, User *user, int *statusGame, Histories *data)
         {
             display_board(board, size);
             printf("Tie game!\n");
-            play_sfx("lose");
+            play_sfx("tie");
             *statusGame = 2;
             break;
         }
@@ -215,7 +215,7 @@ void pvc(int size, int mode, int *statusGame, Histories *data, User *user)
         {
             display_board(board, size);
             printf("Tie game!\n");
-            play_sfx("lose");
+            play_sfx("tie");
             *statusGame = 2;
             break;
         }
@@ -301,7 +301,7 @@ void play_sound(User *user)
         mciSendString("play mp3", NULL, 0, NULL);
 
         // Wait for the playback to finish (you can adjust this time)
-        Sleep(3000);
+        Sleep(2000);
 
         // Close the MP3 file
         mciSendString("close mp3", NULL, 0, NULL);
@@ -332,13 +332,13 @@ void play_sfx(char *sfx)
     // Play the MP3 file
     mciSendString("play mp3", NULL, 0, NULL);
     // Wait for the playback to finish (you can adjust this time)
-    if (length > 2)
+    if (length > 2) // win, lose, tie
     {
-        Sleep(3000);
+        Sleep(4000);
     }
     else
     {
-        Sleep(1000);
+        Sleep(1000); // pm, cm
     }
     // Close the MP3 file
     mciSendString("close mp3", NULL, 0, NULL);
